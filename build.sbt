@@ -8,7 +8,6 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 lazy val scala212 = "2.12.11"
 lazy val scala213 = "2.13.1"
 lazy val supportedScalaVersions = List(scala212, scala213)
-val twitterReleaseVersion = "20.9.0"
 
 ThisBuild / organization := "com.av8data"
 ThisBuild / scalaVersion := scala212
@@ -23,7 +22,7 @@ lazy val publishSettings = Seq(
   autoAPIMappings := true
 )
 
-showCurrentGitBranch
+//showCurrentGitBranch
 git.useGitDescribe := true
 git.baseVersion := "0.0.0"
 val VersionRegex = "v([0-9]+.[0-9]+.[0-9]+)-?(.*)?".r
