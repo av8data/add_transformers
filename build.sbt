@@ -27,9 +27,9 @@ git.baseVersion := "0.0.0"
 val VersionRegex = "v([0-9]+.[0-9]+.[0-9]+)-?(.*)?".r
 git.gitTagToVersionNumber := {
   case VersionRegex(v, "SNAPSHOT") => Some(s"$v-SNAPSHOT")
-  case VersionRegex(v, "")         => Some(v)
-  case VersionRegex(v, s)          => Some(v)
-  case v                           => None
+  case VersionRegex(v, "") => Some(v)
+  case VersionRegex(v, s) => Some(v)
+  case v => None
 }
 
 releaseVersionBump := sbtrelease.Version.Bump.Next
