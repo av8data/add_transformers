@@ -64,14 +64,15 @@ lazy val sharedSettings = Seq(
 )
 
 lazy val jxbLibs = "javax.xml.bind" % "jaxb-api" % "2.3.1"
-lazy val scalaXml = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
 lazy val scalaParser = "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
+lazy val scalaXml = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
 
 lazy val tafdata = project
   .enablePlugins(ScalaxbPlugin, GitVersioning, GitBranchPrompt)
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.tafdata",
+    moduleName := "add_transformers-tafdata",
     scalaxbIgnoreUnknown in (Compile, scalaxb) := true,
   )
   .settings(publishSettings)
@@ -81,6 +82,7 @@ lazy val metardata = project
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.metardata",
+    moduleName := "add_transformers-metardata",
     scalaxbIgnoreUnknown in (Compile, scalaxb) := true,
   )
   .settings(publishSettings)
@@ -90,6 +92,7 @@ lazy val pirepdata = project
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.pirepdata",
+    moduleName := "add_transformers-pirepdata",
     scalaxbIgnoreUnknown in (Compile, scalaxb) := true,
   )
   .settings(publishSettings)
@@ -99,6 +102,7 @@ lazy val aircraftreports = project
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.aircraftreports",
+    moduleName := "add_transformers-aircraftreports",
     scalaxbIgnoreUnknown in (Compile, scalaxb) := true,
   )
   .settings(publishSettings)
@@ -108,6 +112,7 @@ lazy val airsigmet = project
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.airsigmet",
+    moduleName := "add_transformers-airsigmet",
     scalaxbIgnoreUnknown in (Compile, scalaxb) := true,
   )
   .settings(publishSettings)
