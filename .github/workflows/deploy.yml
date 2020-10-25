@@ -36,7 +36,7 @@ jobs:
     - name: git show ref tags
       run: git show-ref --tags
     - name: git set email
-      run: git config --global user.email "av8dataci@av8data.com.com"
+      run: git config --global user.email "av8dataci@av8data.com"
     - name: git set username
       run: git config --global user.name "Github CI"
     - name: git checkout master
