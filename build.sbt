@@ -13,7 +13,6 @@ ThisBuild / organization := "com.av8data"
 ThisBuild / scalaVersion := scala212
 ThisBuild / crossScalaVersions := supportedScalaVersions
 
-
 lazy val publishSettings = Seq(
   publishMavenStyle := true,
   publishArtifact in Compile := true,
@@ -28,9 +27,9 @@ git.baseVersion := "0.0.0"
 val VersionRegex = "v([0-9]+.[0-9]+.[0-9]+)-?(.*)?".r
 git.gitTagToVersionNumber := {
   case VersionRegex(v, "SNAPSHOT") => Some(s"$v-SNAPSHOT")
-  case VersionRegex(v, "") => Some(v)
-  case VersionRegex(v, s) => Some(v)
-  case v => None
+  case VersionRegex(v, "")         => Some(v)
+  case VersionRegex(v, s)          => Some(v)
+  case v                           => None
 }
 
 releaseVersionBump := sbtrelease.Version.Bump.Next
@@ -64,7 +63,8 @@ lazy val sharedSettings = Seq(
 )
 
 lazy val jxbLibs = "javax.xml.bind" % "jaxb-api" % "2.3.1"
-lazy val scalaParser = "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
+lazy val scalaParser =
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
 lazy val scalaXml = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
 
 lazy val tafdata = project
@@ -73,7 +73,7 @@ lazy val tafdata = project
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.tafdata",
     moduleName := "add_transformers-tafdata",
-    scalaxbIgnoreUnknown in (Compile, scalaxb) := true,
+    scalaxbIgnoreUnknown in (Compile, scalaxb) := true
   )
   .settings(publishSettings)
 
@@ -83,7 +83,7 @@ lazy val metardata = project
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.metardata",
     moduleName := "add_transformers-metardata",
-    scalaxbIgnoreUnknown in (Compile, scalaxb) := true,
+    scalaxbIgnoreUnknown in (Compile, scalaxb) := true
   )
   .settings(publishSettings)
 
@@ -93,7 +93,7 @@ lazy val pirepdata = project
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.pirepdata",
     moduleName := "add_transformers-pirepdata",
-    scalaxbIgnoreUnknown in (Compile, scalaxb) := true,
+    scalaxbIgnoreUnknown in (Compile, scalaxb) := true
   )
   .settings(publishSettings)
 
@@ -103,7 +103,7 @@ lazy val aircraftreports = project
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.aircraftreports",
     moduleName := "add_transformers-aircraftreports",
-    scalaxbIgnoreUnknown in (Compile, scalaxb) := true,
+    scalaxbIgnoreUnknown in (Compile, scalaxb) := true
   )
   .settings(publishSettings)
 
@@ -113,6 +113,6 @@ lazy val airsigmet = project
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.airsigmet",
     moduleName := "add_transformers-airsigmet",
-    scalaxbIgnoreUnknown in (Compile, scalaxb) := true,
+    scalaxbIgnoreUnknown in (Compile, scalaxb) := true
   )
   .settings(publishSettings)
