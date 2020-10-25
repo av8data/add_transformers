@@ -22,7 +22,7 @@ lazy val publishSettings = Seq(
   autoAPIMappings := true
 )
 
-//showCurrentGitBranch
+showCurrentGitBranch
 git.useGitDescribe := true
 git.baseVersion := "0.0.0"
 val VersionRegex = "v([0-9]+.[0-9]+.[0-9]+)-?(.*)?".r
