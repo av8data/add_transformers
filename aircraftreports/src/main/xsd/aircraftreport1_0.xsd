@@ -1,0 +1,133 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="response">
+		<xsd:complexType >
+			<xsd:sequence >
+				<xsd:element ref="request_index" />
+				<xsd:element ref="data_source" />
+				<xsd:element ref="request"/>
+				<xsd:element ref="errors"/>
+				<xsd:element ref="warnings"/>
+				<xsd:element ref="time_taken_ms"/>
+				<xsd:element ref="data"/>
+			</xsd:sequence>
+			<xsd:attribute name="version" type="xsd:string" default="1.0"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="request_index" type="xsd:int"/>
+	<xsd:element name="data_source" >
+		<xsd:complexType>
+			<xsd:attribute name="name" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="request" >
+		<xsd:complexType>
+			<xsd:attribute name="type" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="errors">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0" >
+				<xsd:element ref="error" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="warnings">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0">
+				<xsd:element ref="warning" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="data" >
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+				<xsd:element ref="AircraftReport"/>
+			</xsd:sequence>
+			<xsd:attribute name="num_results" type="xsd:int"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="warning" type="xsd:string"/>
+	<xsd:element name="error" type="xsd:string"/>
+	<xsd:element name="time_taken_ms" type="xsd:int"/>
+	<xsd:attribute name="num_results" type="xsd:int"/>
+	<xsd:element name="AircraftReport">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="receipt_time" minOccurs="0"/>
+				<xsd:element ref="observation_time" minOccurs="0"/>
+				<xsd:element ref="quality_control_flags" minOccurs="0"/>
+				<xsd:element ref="aircraft_ref" minOccurs="0"/>
+				<xsd:element ref="latitude" minOccurs="0"/>
+				<xsd:element ref="longitude" minOccurs="0"/>
+				<xsd:element ref="altitude_ft_msl" minOccurs="0"/>
+				<xsd:element ref="sky_condition" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="turbulence_condition" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="icing_condition" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element ref="visibility_statute_mi" minOccurs="0"/>
+				<xsd:element ref="wx_string" minOccurs="0"/>
+				<xsd:element ref="temp_c" minOccurs="0"/>
+				<xsd:element ref="wind_dir_degrees" minOccurs="0"/>
+				<xsd:element ref="wind_speed_kt" minOccurs="0"/>
+				<xsd:element ref="vert_gust_kt" minOccurs="0"/>
+				<xsd:element ref="report_type" minOccurs="0"/>
+				<xsd:element ref="raw_text" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="receipt_time" type="xsd:string"/>
+	<xsd:element name="observation_time" type="xsd:string"/>
+	<xsd:element name="quality_control_flags">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="mid_point_assumed" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="no_time_stamp" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="flt_lvl_range" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="above_ground_level_indicated" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="no_flt_lvl" minOccurs="0" maxOccurs="1"/>
+				<xsd:element ref="bad_location" minOccurs="0" maxOccurs="1"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="mid_point_assumed" type="xsd:string"/>
+	<xsd:element name="no_time_stamp" type="xsd:string"/>
+	<xsd:element name="flt_lvl_range" type="xsd:string"/>
+	<xsd:element name="above_ground_level_indicated" type="xsd:string"/>
+	<xsd:element name="no_flt_lvl" type="xsd:string"/>
+	<xsd:element name="bad_location" type="xsd:string"/>
+	<xsd:element name="aircraft_ref" type="xsd:string"/>
+	<xsd:element name="latitude" type="xsd:float"/>
+	<xsd:element name="longitude" type="xsd:float"/>
+	<xsd:element name="altitude_ft_msl" type="xsd:int"/>
+	<xsd:element name="sky_condition">
+		<xsd:complexType>
+			<xsd:attribute name="sky_cover" type="xsd:string" />
+			<xsd:attribute name="cloud_base_ft_msl" type="xsd:int"/>
+			<xsd:attribute name="cloud_top_ft_msl" type="xsd:int"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="turbulence_condition">
+		<xsd:complexType>
+			<xsd:attribute name="turbulence_type" type="xsd:string"/>
+			<xsd:attribute name="turbulence_intensity" type="xsd:string"/>
+			<xsd:attribute name="turbulence_base_ft_msl" type="xsd:int"/>
+			<xsd:attribute name="turbulence_top_ft_msl" type="xsd:int"/>
+			<xsd:attribute name="turbulence_freq" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="icing_condition">
+		<xsd:complexType >
+			<xsd:attribute name="icing_type" type="xsd:string"/>
+			<xsd:attribute name="icing_intensity" type="xsd:string"/>
+			<xsd:attribute name="icing_base_ft_msl" type="xsd:int"/>
+			<xsd:attribute name="icing_top_ft_msl" type="xsd:int"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="visibility_statute_mi" type="xsd:int"/>
+	<xsd:element name="wx_string" type="xsd:string"/>
+	<xsd:element name="temp_c" type="xsd:float"/>
+	<xsd:element name="wind_dir_degrees" type="xsd:int"/>
+	<xsd:element name="wind_speed_kt" type="xsd:int"/>
+	<xsd:element name="vert_gust_kt" type="xsd:int"/>
+	<xsd:element name="report_type" type="xsd:string"/>
+	<xsd:element name="raw_text" type="xsd:string"/>
+</xsd:schema>

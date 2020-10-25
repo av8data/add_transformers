@@ -1,0 +1,105 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="response" >
+			<xsd:complexType >
+			<xsd:sequence >
+				<xsd:element ref="request_index" />
+				<xsd:element ref="data_source" />
+				<xsd:element ref="request"/>
+				<xsd:element ref="errors"/>
+				<xsd:element ref="warnings"/>
+				<xsd:element ref="time_taken_ms"/>
+				<xsd:element ref="data"/>
+			</xsd:sequence>
+			<xsd:attribute name="version" type="xsd:string" default="1.1"/>
+		</xsd:complexType>
+	</xsd:element>
+		
+	<xsd:element name="request_index" type="xsd:int"/>
+	<xsd:element name="data_source" >
+		<xsd:complexType>
+			<xsd:attribute name="name" type="xsd:string"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="request" >
+		<xsd:complexType>
+				<xsd:attribute name="type" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="errors">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0" >
+				<xsd:element ref="error" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="warnings">
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0">
+				<xsd:element ref="warning" />
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="data" >
+		<xsd:complexType>
+			<xsd:sequence minOccurs="0" maxOccurs="unbounded">
+				<xsd:element ref="AIRSIGMET"/>
+			</xsd:sequence>
+			<xsd:attribute name="num_results" type="xsd:int"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="warning" type="xsd:string"/>
+	<xsd:element name="error" type="xsd:string"/>
+	<xsd:element name="time_taken_ms" type="xsd:int"/>
+	<xsd:attribute name="num_results" type="xsd:int"/>
+		
+	<xsd:element name="AIRSIGMET">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="raw_text" minOccurs="0"/>
+				<xsd:element ref="valid_time_from" minOccurs="0"/>
+				<xsd:element ref="valid_time_to" minOccurs="0"/>
+				<xsd:element ref="altitude" minOccurs="0"/>
+				<xsd:element ref="movement_dir_degrees" minOccurs="0"/>
+				<xsd:element ref="movement_speed_kt" minOccurs="0"/>
+				<xsd:element ref="hazard" minOccurs="0"/>
+				<xsd:element ref="airsigmet_type" minOccurs="0"/>
+				<xsd:element ref="area" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+		
+	<xsd:element name="raw_text" type="xsd:string"/>
+	<xsd:element name="valid_time_from" type="xsd:string"/>
+	<xsd:element name="valid_time_to" type="xsd:string"/>
+	<xsd:element name="altitude" >
+		<xsd:complexType>
+			<xsd:attribute name="min_ft_msl" type="xsd:int" />
+			<xsd:attribute name="max_ft_msl" type="xsd:int" />
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="movement_dir_degrees" type="xsd:integer"/>
+	<xsd:element name="movement_speed_kt" type="xsd:integer"/>
+	<xsd:element name="hazard" >
+		<xsd:complexType>
+			<xsd:attribute name="type" type="xsd:string" />
+			<xsd:attribute name="severity" type="xsd:string" />
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="airsigmet_type" type="xsd:string"/>
+	<xsd:element name="area" >
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="point" minOccurs="1" maxOccurs="unbounded" />
+			</xsd:sequence>
+			<xsd:attribute name="num_points" type="xsd:integer"/>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="point">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="longitude" type="xsd:float" minOccurs="1"/>
+				<xsd:element name="latitude" type="xsd:float" minOccurs="1"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
