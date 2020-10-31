@@ -11,16 +11,15 @@ jobs:
     timeout-minutes: 15
 
     steps:
-    - uses: actions/checkout@v2
     - name: Turnstyle
       uses: softprops/turnstyle@v1
-      with:
-        abort-after-seconds: 420
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - uses: actions/checkout@v2
     - uses: olafurpg/setup-scala@v5
       with:
         java-version: openjdk@1.11.0-6
+    - run: git pull
     - run: git fetch --unshallow
     - run: git fetch origin +refs/tags/*:refs/tags/*
     - name: exports
