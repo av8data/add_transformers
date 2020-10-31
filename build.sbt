@@ -9,12 +9,11 @@ lazy val scala212 = "2.12.11"
 lazy val scala213 = "2.13.1"
 lazy val supportedScalaVersions = List(scala212, scala213)
 
-ThisBuild / organization := "com.av8data"
-ThisBuild / scalaVersion := scala212
-ThisBuild / crossScalaVersions := supportedScalaVersions
-
 inThisBuild(
   List(
+    crossScalaVersions := supportedScalaVersions,
+    scalaVersion := scala212,
+    organization := "com.av8data",
     homepage := Some(url("https://av8data.com")),
     licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
     developers := List(
@@ -27,13 +26,6 @@ inThisBuild(
     )
   ))
 
-lazy val publishSettings = Seq(
-  publishMavenStyle := true,
-  publishArtifact in Compile := true,
-  publishArtifact in Test := false,
-  autoAPIMappings := true
-)
-
 showCurrentGitBranch
 git.useGitDescribe := true
 git.baseVersion := "0.0.0"
@@ -45,41 +37,41 @@ git.gitTagToVersionNumber := {
   case v => None
 }
 
-publishTo in ThisBuild := {
-  val nexus = "https://oss.sonatype.org/"
-//  if (isSnapshot.value)
-//    Some("snapshots" at nexus + "content/repositories/snapshots")
-//  else
-    Some("releases" at nexus + "service/local/staging/deploy/maven2")
-}
-
 (sys.env.get("SONATYPE_USERNAME"), sys.env.get("SONATYPE_PASSWORD")) match {
   case (Some(username), Some(password)) =>
     println(s"Using credentials: $username/$password")
     credentials += Credentials(
-      "Sonatype Nexus Repository Manager",
-      "oss.sonatype.org",
-      username,
-      password)
+      realm = "Sonatype Nexus Repository Manager",
+      host = "oss.sonatype.org",
+      userName = username,
+      passwd = password)
   case _ =>
     println("USERNAME and/or PASSWORD is missing, using local credentials")
     credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 }
 
+lazy val publishSettings = Seq(
+  publishMavenStyle := true,
+  publishArtifact in Compile := true,
+  publishArtifact in Test := false,
+  autoAPIMappings := true
+)
+
+publishTo in ThisBuild := {
+  val nexus: String = "https://oss.sonatype.org/"
+  Some("releases" at nexus + "service/local/staging/deploy/maven2")
+}
+
 credentials += Credentials(
-  "GnuPG Key ID",
-  "gpg",
-  "B98040CCE81E1A52F3358BED4391E8775B145A81", // key identifier
-  "ignored"
+  realm = "GnuPG Key ID",
+  host = "gpg",
+  userName = "B98040CCE81E1A52F3358BED4391E8775B145A81", // key identifier
+  passwd = "ignored"
 )
 
 pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toCharArray())
 
 releaseVersionBump := sbtrelease.Version.Bump.Next
-//releasePublishArtifactsAction := PgpKeys.publishSigned.value
-
-//releasePublishArtifactsAction in ThisBuild := PgpKeys.publishSigned.value
-
 releaseVersion := { ver =>
   Version(ver)
     .map(_.bump(releaseVersionBump.value).string)
