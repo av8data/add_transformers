@@ -19,6 +19,8 @@ jobs:
     - run: git fetch origin +refs/tags/*:refs/tags/*
     - name: exports
       run: export GPG_TTY=$(tty)
+    - name: gpg version
+      run: gpg --version
     - name: Import GPG key
       id: import_gpg
       uses: crazy-max/ghaction-import-gpg@v3
