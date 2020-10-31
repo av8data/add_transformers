@@ -13,11 +13,23 @@ ThisBuild / organization := "com.av8data"
 ThisBuild / scalaVersion := scala212
 ThisBuild / crossScalaVersions := supportedScalaVersions
 
+inThisBuild(List(
+  homepage := Some(url("https://av8data.com")),
+  licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+  developers := List(
+    Developer(
+      "mattav8data",
+      "Matthew Dickinson ",
+      "matt@av8data.com",
+      url("https://av8data.com")
+    )
+  )
+))
+
 lazy val publishSettings = Seq(
   publishMavenStyle := true,
   publishArtifact in Compile := true,
   publishArtifact in Test := false,
-  homepage := Some(url("https://av8data.com")),
   autoAPIMappings := true
 )
 
@@ -31,6 +43,33 @@ git.gitTagToVersionNumber := {
   case VersionRegex(v, s) => Some(v)
   case v => None
 }
+
+publishTo := {
+  val nexus = "https://oss.sonatype.org/"
+  if (isSnapshot.value)
+    Some("snapshots" at nexus + "content/repositories/snapshots")
+  else
+    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+}
+
+
+(sys.env.get("SONATYPE_USERNAME"), sys.env.get("SONATYPE_PASSWORD")) match {
+  case (Some(username), Some(password)) =>
+    println(s"Using credentials: $username/$password")
+    credentials += Credentials("Sonatype Nexus Repository Manager", "oss.sonatype.org", username, password)
+  case _ =>
+    println("USERNAME and/or PASSWORD is missing, using local credentials")
+    credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
+}
+
+credentials += Credentials(
+  "GnuPG Key ID",
+  "gpg",
+  "B98040CCE81E1A52F3358BED4391E8775B145A81", // key identifier
+  "ignored"
+)
+
+pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toCharArray())
 
 releaseVersionBump := sbtrelease.Version.Bump.Next
 
@@ -46,7 +85,7 @@ releaseProcess := Seq(
   setReleaseVersion,
   runTest,
   tagRelease,
-//  publishArtifacts,
+  publishArtifacts,
   pushChanges
 )
 
