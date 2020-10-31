@@ -17,6 +17,18 @@ jobs:
         java-version: openjdk@1.11.0-6
     - run: git fetch --unshallow
     - run: git fetch origin +refs/tags/*:refs/tags/*
+    - name: Import GPG key
+      id: import_gpg
+      uses: crazy-max/ghaction-import-gpg@v3
+      with:
+        gpg-private-key: ${{ secrets.PGP_SECRET }}
+        passphrase: ${{ secrets.PGP_PASSPHRASE }}-
+    - name: GPG user IDs
+      run: |
+        echo "fingerprint: ${{ steps.import_gpg.outputs.fingerprint }}"
+        echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
+        echo "name:        ${{ steps.import_gpg.outputs.name }}"
+        echo "email:       ${{ steps.import_gpg.outputs.email }}"
     - name: Cache SBT ivy cache
       uses: actions/cache@v1
       with:
@@ -43,13 +55,13 @@ jobs:
       run: git checkout -f master
     - name: git log
       run: git log | head -1000
-    - name: Configure GPG Key
-      run: |
-        mkdir -p ~/.gnupg/
-        printf "$GPG_SIGNING_KEY" | base64 --decode > ~/.gnupg/private.key
-        gpg --import ~/.gnupg/private.key
-      env:
-        GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+#    - name: Configure GPG Key
+#      run: |
+#        mkdir -p ~/.gnupg/
+#        printf "$GPG_SIGNING_KEY" | base64 --decode > ~/.gnupg/private.key
+#        gpg --import ~/.gnupg/private.key
+#      env:
+#        GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
 
 #    - name: create file
 #      run: echo $PGP_SECRET > $HOME/secring.gpg
