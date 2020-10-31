@@ -43,12 +43,20 @@ jobs:
       run: git checkout -f master
     - name: git log
       run: git log | head -1000
-    - name: create file
-      run: echo $PGP_SECRET > $HOME/secring.gpg
+    - name: Configure GPG Key
+      run: |
+        mkdir -p ~/.gnupg/
+        printf "$GPG_SIGNING_KEY" | base64 --decode > ~/.gnupg/private.key
+        gpg --import ~/.gnupg/private.key
       env:
-        PGP_SECRET: ${{ secrets.PGP_SECRET }}
-    - name: import secring
-      run: ls -l $HOME/secring.gpg;gpg --verbose --import $HOME/secring.gpg
+        GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+
+#    - name: create file
+#      run: echo $PGP_SECRET > $HOME/secring.gpg
+#      env:
+#        PGP_SECRET: ${{ secrets.PGP_SECRET }}
+#    - name: import secring
+#      run: ls -l $HOME/secring.gpg;gpg --verbose --import $HOME/secring.gpg
     - name: release with-defaults
       run: sbt "release cross with-defaults"
       env:
