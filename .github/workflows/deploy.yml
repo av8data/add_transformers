@@ -43,26 +43,32 @@ jobs:
       run: git checkout -f master
     - name: git log
       run: git log | head -1000
-#    - name: release with-defaults
-#      run: sbt "release cross with-defaults"
+    - name: create file
+      run: echo $PGP_SECRET > $HOME/secring.asc
+      env:
+        PGP_SECRET: ${{ secrets.PGP_SECRET }}
+    - name: import secring
+      run: gpg --import $HOME/secring.asc
+    - name: release with-defaults
+      run: sbt "release cross with-defaults"
+      env:
+        PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+        PGP_SECRET: ${{ secrets.PGP_SECRET }}
+        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+#    - name: publish
+#      run: sbt publishSigned
 #      env:
 #        PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
 #        PGP_SECRET: ${{ secrets.PGP_SECRET }}
 #        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
 #        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-    - name: publish
-      run: sbt publishSigned
-      env:
-        PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
-        PGP_SECRET: ${{ secrets.PGP_SECRET }}
-        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-    - name: sonatypeBundleRelease
-      run: sbt sonatypeBundleRelease
-      env:
-        PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
-        PGP_SECRET: ${{ secrets.PGP_SECRET }}
-        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+#    - name: sonatypeBundleRelease
+#      run: sbt sonatypeBundleRelease
+#      env:
+#        PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+#        PGP_SECRET: ${{ secrets.PGP_SECRET }}
+#        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+#        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
 
 
