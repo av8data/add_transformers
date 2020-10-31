@@ -8,10 +8,16 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
 
     steps:
     - uses: actions/checkout@v2
+    - name: Turnstyle
+      uses: softprops/turnstyle@v1
+      with:
+        abort-after-seconds: 420
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: olafurpg/setup-scala@v5
       with:
         java-version: openjdk@1.11.0-6
@@ -57,20 +63,6 @@ jobs:
       run: git checkout -f master
     - name: git log
       run: git log | head -1000
-#    - name: Configure GPG Key
-#      run: |
-#        mkdir -p ~/.gnupg/
-#        printf "$GPG_SIGNING_KEY" | base64 --decode > ~/.gnupg/private.key
-#        gpg --import ~/.gnupg/private.key
-#      env:
-#        GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
-
-#    - name: create file
-#      run: echo $PGP_SECRET > $HOME/secring.gpg
-#      env:
-#        PGP_SECRET: ${{ secrets.PGP_SECRET }}
-#    - name: import secring
-#      run: ls -l $HOME/secring.gpg;gpg --verbose --import $HOME/secring.gpg
     - name: release with-defaults
       run: sbt "release cross with-defaults"
       env:
@@ -78,17 +70,5 @@ jobs:
         PGP_SECRET: ${{ secrets.PGP_SECRET }}
         SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-#    - name: publish
-#      run: sbt publishSigned
-#      env:
-#        PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
-#        PGP_SECRET: ${{ secrets.PGP_SECRET }}
-#        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-#        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-#    - name: sonatypeBundleRelease
-#      run: sbt sonatypeBundleRelease
-#      env:
-#        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-#        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
 
 
