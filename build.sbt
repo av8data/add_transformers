@@ -76,9 +76,9 @@ credentials += Credentials(
 pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toCharArray())
 
 releaseVersionBump := sbtrelease.Version.Bump.Next
+//releasePublishArtifactsAction := PgpKeys.publishSigned.value
 
-releasePublishArtifactsAction in ThisBuild := PgpKeys.publishSigned.value
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
+//releasePublishArtifactsAction in ThisBuild := PgpKeys.publishSigned.value
 
 releaseVersion := { ver =>
   Version(ver)
