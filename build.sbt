@@ -29,7 +29,9 @@ inThisBuild(
         browseUrl = url("https://github.com/av8data/add_transformers"),
         connection = "https://github.com/av8data/add_transformers.git"
       )
-    )
+    ),
+    publishTo := Some(
+      "releases" at "https://oss.sonatype.org/" + "service/local/staging/deploy/maven2")
   )
 )
 
@@ -61,9 +63,7 @@ lazy val publishSettings = Seq(
   publishMavenStyle := true,
   publishArtifact in Compile := true,
   publishArtifact in Test := false,
-  autoAPIMappings := true,
-  publishTo := Some(
-    "releases" at "https://oss.sonatype.org/" + "service/local/staging/deploy/maven2")
+  autoAPIMappings := true
 )
 
 credentials += Credentials(
@@ -111,7 +111,8 @@ lazy val scalaParser =
   "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
 lazy val scalaXml = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
 
-lazy val root = Project("adds_transformers", file("."))
+lazy val adds_transformers = project.settings(  publishLocal := {},
+  publish := {})
 
 lazy val tafdata = project
   .enablePlugins(ScalaxbPlugin, GitVersioning, GitBranchPrompt)
