@@ -45,11 +45,11 @@ git.gitTagToVersionNumber := {
   case v => None
 }
 
-publishTo := {
+publishTo in ThisBuild := {
   val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
+//  if (isSnapshot.value)
+//    Some("snapshots" at nexus + "content/repositories/snapshots")
+//  else
     Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
 
