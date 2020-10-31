@@ -125,7 +125,8 @@ lazy val aircraftreports = project
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.aircraftreports",
-    moduleName := "add_transformers-aircraftreports"
+    moduleName := "add_transformers-aircraftreports",
+    description := "AIREP data representation in scalaxb"
   )
   .settings(publishSettings)
 
@@ -134,7 +135,8 @@ lazy val airsigmet = project
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.airsigmet",
-    moduleName := "add_transformers-airsigmet"
+    moduleName := "add_transformers-airsigmet",
+    description := "AIRSIGMENT data representation in scalaxb"
   )
   .settings(publishSettings)
 
@@ -143,7 +145,8 @@ lazy val metardata = project
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.metardata",
-    moduleName := "add_transformers-metardata"
+    moduleName := "add_transformers-metardata",
+    description := "METAR data representation in scalaxb"
   )
   .settings(publishSettings)
 
@@ -152,7 +155,8 @@ lazy val pirepdata = project
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.pirepdata",
-    moduleName := "add_transformers-pirepdata"
+    moduleName := "add_transformers-pirepdata",
+    description := "PIREP data representation in scalaxb"
   )
   .settings(publishSettings)
 
@@ -161,7 +165,8 @@ lazy val tafdata = project
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.tafdata",
-    moduleName := "add_transformers-tafdata"
+    moduleName := "add_transformers-tafdata",
+    description := "TAF data representation in scalaxb"
   )
   .settings(publishSettings)
 
