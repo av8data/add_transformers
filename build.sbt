@@ -13,18 +13,19 @@ ThisBuild / organization := "com.av8data"
 ThisBuild / scalaVersion := scala212
 ThisBuild / crossScalaVersions := supportedScalaVersions
 
-inThisBuild(List(
-  homepage := Some(url("https://av8data.com")),
-  licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
-  developers := List(
-    Developer(
-      "mattav8data",
-      "Matthew Dickinson ",
-      "matt@av8data.com",
-      url("https://av8data.com")
+inThisBuild(
+  List(
+    homepage := Some(url("https://av8data.com")),
+    licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
+    developers := List(
+      Developer(
+        "mattav8data",
+        "Matthew Dickinson ",
+        "matt@av8data.com",
+        url("https://av8data.com")
+      )
     )
-  )
-))
+  ))
 
 lazy val publishSettings = Seq(
   publishMavenStyle := true,
@@ -49,14 +50,17 @@ publishTo := {
   if (isSnapshot.value)
     Some("snapshots" at nexus + "content/repositories/snapshots")
   else
-    Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+    Some("releases" at nexus + "service/local/staging/deploy/maven2")
 }
-
 
 (sys.env.get("SONATYPE_USERNAME"), sys.env.get("SONATYPE_PASSWORD")) match {
   case (Some(username), Some(password)) =>
     println(s"Using credentials: $username/$password")
-    credentials += Credentials("Sonatype Nexus Repository Manager", "oss.sonatype.org", username, password)
+    credentials += Credentials(
+      "Sonatype Nexus Repository Manager",
+      "oss.sonatype.org",
+      username,
+      password)
   case _ =>
     println("USERNAME and/or PASSWORD is missing, using local credentials")
     credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
