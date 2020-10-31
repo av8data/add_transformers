@@ -23,8 +23,17 @@ inThisBuild(
         "matt@av8data.com",
         url("https://av8data.com")
       )
-    )
-  ))
+    ),
+    scmInfo := Some(
+      ScmInfo(
+        browseUrl = url("https://github.com/av8data/add_transformers"),
+        connection = "https://github.com/av8data/add_transformers.git"
+      )
+    ),
+    publishTo := Some(
+      "releases" at "https://oss.sonatype.org/" + "service/local/staging/deploy/maven2")
+  )
+)
 
 showCurrentGitBranch
 git.useGitDescribe := true
@@ -56,11 +65,6 @@ lazy val publishSettings = Seq(
   publishArtifact in Test := false,
   autoAPIMappings := true
 )
-
-publishTo in ThisBuild := {
-  val nexus: String = "https://oss.sonatype.org/"
-  Some("releases" at nexus + "service/local/staging/deploy/maven2")
-}
 
 credentials += Credentials(
   realm = "GnuPG Key ID",
