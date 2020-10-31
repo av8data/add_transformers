@@ -41,8 +41,8 @@ jobs:
       with:
         path: ~/.sbt
         key: ${{ runner.os }}-sbt-${{ hashFiles('**/build.sbt') }}
-    - name: Run tests
-      run: sbt +test
+#    - name: Run tests
+#      run: sbt +test
     - name: git tags
       run: git tag -l
     - name: git fetch tags
