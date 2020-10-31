@@ -78,6 +78,7 @@ pgpPassphrase := sys.env.get("PGP_PASSPHRASE").map(_.toCharArray())
 releaseVersionBump := sbtrelease.Version.Bump.Next
 
 releasePublishArtifactsAction in ThisBuild := PgpKeys.publishSigned.value
+releasePublishArtifactsAction := PgpKeys.publishSigned.value
 
 releaseVersion := { ver =>
   Version(ver)
@@ -104,7 +105,8 @@ lazy val sharedSettings = Seq(
   organization := "com.av8data",
   libraryDependencies ++= Seq(jxbLibs, scalaXml, scalaParser),
   crossScalaVersions := supportedScalaVersions,
-  releaseCrossBuild := true
+  releaseCrossBuild := true,
+  releasePublishArtifactsAction := PgpKeys.publishSigned.value
 )
 
 lazy val jxbLibs = "javax.xml.bind" % "jaxb-api" % "2.3.1"
