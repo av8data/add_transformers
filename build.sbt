@@ -85,6 +85,7 @@ releaseProcess := Seq(
   runTest,
   tagRelease,
   publishArtifacts,
+  releaseStepCommand("sonatypeRelease"),
   pushChanges
 )
 
