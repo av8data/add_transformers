@@ -44,11 +44,11 @@ jobs:
     - name: git log
       run: git log | head -1000
     - name: create file
-      run: echo $PGP_SECRET > $HOME/secring.asc
+      run: echo $PGP_SECRET > $HOME/secring.gpg
       env:
         PGP_SECRET: ${{ secrets.PGP_SECRET }}
     - name: import secring
-      run: gpg --import $HOME/secring.asc
+      run: ls -l $HOME/secring.gpg;gpg --verbose --import $HOME/secring.gpg
     - name: release with-defaults
       run: sbt "release cross with-defaults"
       env:
