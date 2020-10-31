@@ -29,9 +29,7 @@ inThisBuild(
         browseUrl = url("https://github.com/av8data/add_transformers"),
         connection = "https://github.com/av8data/add_transformers.git"
       )
-    ),
-    publishTo := Some(
-      "releases" at "https://oss.sonatype.org/" + "service/local/staging/deploy/maven2")
+    )
   )
 )
 
@@ -63,7 +61,9 @@ lazy val publishSettings = Seq(
   publishMavenStyle := true,
   publishArtifact in Compile := true,
   publishArtifact in Test := false,
-  autoAPIMappings := true
+  autoAPIMappings := true,
+  publishTo := Some(
+    "releases" at "https://oss.sonatype.org/" + "service/local/staging/deploy/maven2")
 )
 
 credentials += Credentials(
