@@ -23,8 +23,17 @@ inThisBuild(
         "matt@av8data.com",
         url("https://av8data.com")
       )
-    )
-  ))
+    ),
+    scmInfo := Some(
+      ScmInfo(
+        browseUrl = url("https://github.com/av8data/add_transformers"),
+        connection = "https://github.com/av8data/add_transformers.git"
+      )
+    ),
+    publishTo := Some(
+      "releases" at "https://oss.sonatype.org/" + "service/local/staging/deploy/maven2"),
+  )
+)
 
 showCurrentGitBranch
 git.useGitDescribe := true
@@ -57,11 +66,6 @@ lazy val publishSettings = Seq(
   autoAPIMappings := true
 )
 
-publishTo in ThisBuild := {
-  val nexus: String = "https://oss.sonatype.org/"
-  Some("releases" at nexus + "service/local/staging/deploy/maven2")
-}
-
 credentials += Credentials(
   realm = "GnuPG Key ID",
   host = "gpg",
@@ -85,6 +89,7 @@ releaseProcess := Seq(
   runTest,
   tagRelease,
   publishArtifacts,
+  releaseStepCommand("sonatypeRelease"),
   pushChanges
 )
 
@@ -98,7 +103,8 @@ lazy val sharedSettings = Seq(
   libraryDependencies ++= Seq(jxbLibs, scalaXml, scalaParser),
   crossScalaVersions := supportedScalaVersions,
   releaseCrossBuild := true,
-  releasePublishArtifactsAction := PgpKeys.publishSigned.value
+  releasePublishArtifactsAction := PgpKeys.publishSigned.value,
+  scalaxbIgnoreUnknown in (Compile, scalaxb) := true
 )
 
 lazy val jxbLibs = "javax.xml.bind" % "jaxb-api" % "2.3.1"
@@ -106,43 +112,20 @@ lazy val scalaParser =
   "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
 lazy val scalaXml = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
 
-lazy val tafdata = project
-  .enablePlugins(ScalaxbPlugin, GitVersioning, GitBranchPrompt)
-  .settings(sharedSettings)
-  .settings(
-    scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.tafdata",
-    moduleName := "add_transformers-tafdata",
-    scalaxbIgnoreUnknown in (Compile, scalaxb) := true
-  )
-  .settings(publishSettings)
-
-lazy val metardata = project
-  .enablePlugins(ScalaxbPlugin, GitVersioning, GitBranchPrompt)
-  .settings(sharedSettings)
-  .settings(
-    scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.metardata",
-    moduleName := "add_transformers-metardata",
-    scalaxbIgnoreUnknown in (Compile, scalaxb) := true
-  )
-  .settings(publishSettings)
-
-lazy val pirepdata = project
-  .enablePlugins(ScalaxbPlugin, GitVersioning, GitBranchPrompt)
-  .settings(sharedSettings)
-  .settings(
-    scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.pirepdata",
-    moduleName := "add_transformers-pirepdata",
-    scalaxbIgnoreUnknown in (Compile, scalaxb) := true
-  )
-  .settings(publishSettings)
+lazy val root = (project in file("."))
+  .settings(publishLocal := {}, publish := {}).aggregate(
+    aircraftreports,
+    airsigmet,
+    metardata,
+    pirepdata,
+    tafdata)
 
 lazy val aircraftreports = project
   .enablePlugins(ScalaxbPlugin, GitVersioning, GitBranchPrompt)
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.aircraftreports",
-    moduleName := "add_transformers-aircraftreports",
-    scalaxbIgnoreUnknown in (Compile, scalaxb) := true
+    moduleName := "add_transformers-aircraftreports"
   )
   .settings(publishSettings)
 
@@ -151,7 +134,34 @@ lazy val airsigmet = project
   .settings(sharedSettings)
   .settings(
     scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.airsigmet",
-    moduleName := "add_transformers-airsigmet",
-    scalaxbIgnoreUnknown in (Compile, scalaxb) := true
+    moduleName := "add_transformers-airsigmet"
   )
   .settings(publishSettings)
+
+lazy val metardata = project
+  .enablePlugins(ScalaxbPlugin, GitVersioning, GitBranchPrompt)
+  .settings(sharedSettings)
+  .settings(
+    scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.metardata",
+    moduleName := "add_transformers-metardata"
+  )
+  .settings(publishSettings)
+
+lazy val pirepdata = project
+  .enablePlugins(ScalaxbPlugin, GitVersioning, GitBranchPrompt)
+  .settings(sharedSettings)
+  .settings(
+    scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.pirepdata",
+    moduleName := "add_transformers-pirepdata"
+  )
+  .settings(publishSettings)
+
+lazy val tafdata = project
+  .enablePlugins(ScalaxbPlugin, GitVersioning, GitBranchPrompt)
+  .settings(sharedSettings)
+  .settings(
+    scalaxbPackageName in (Compile, scalaxb) := "com.av8data.add_transformers.tafdata",
+    moduleName := "add_transformers-tafdata"
+  )
+  .settings(publishSettings)
+
