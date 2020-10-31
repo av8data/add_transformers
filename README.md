@@ -19,7 +19,13 @@ This is a set of libraries for easing the import of XML data provided by the [FA
 * [PIREP](https://aviationweather.gov/dataserver/example?datatype=metar)
 * [TAF](https://aviationweather.gov/dataserver/example?datatype=taf)
 
-##### Build steps:
+##Latest version
+
+The main branch in Github tracks the latest stable release, which is currently: [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.av8datal/add_transformers-aircraftreports/badge.svg)][maven-central]
+
+The latest version is available on Maven Central. Releases are performed whenever a new commit is merged.
+
+## Build steps:
 
 <pre>$ sbt
 +compile
