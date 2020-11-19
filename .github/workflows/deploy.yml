@@ -16,9 +16,9 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - uses: actions/checkout@v2
-    - uses: olafurpg/setup-scala@v5
+    - uses: olafurpg/setup-scala@v10
       with:
-        java-version: openjdk@1.11.0-6
+        java-version: adopt@1.11.0-6
     - run: git pull
     - run: git fetch --unshallow
     - run: git fetch origin +refs/tags/*:refs/tags/*

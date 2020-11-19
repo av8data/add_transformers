@@ -13,9 +13,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
-    - uses: olafurpg/setup-scala@v5
+    - uses: olafurpg/setup-scala@v10
       with:
-        java-version: openjdk@1.11.0-6
+        java-version: adopt@1.11.0-6
     - name: Cache SBT ivy cache
       uses: actions/cache@v1
       with:
