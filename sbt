@@ -1,8 +1,8 @@
 #!/bin/bash
 
-sbtver=1.4.1
+sbtver=1.4.4
 sbtjar=sbt-launch.jar
-sbtsha128=a9ca97fbfe0b9efa8bc9aee35e6b93c91043aa85
+sbtsha128=b09bbfad81206dc39ac2f780f35c80841aa3a407
 
 sbtrepo="https://repo1.maven.org/maven2/org/scala-sbt/sbt-launch"
 
@@ -21,7 +21,7 @@ fi
 
 [ -f ~/.sbtconfig ] && . ~/.sbtconfig
 
-java -ea                          \
+java -ea \
   $SBT_OPTS                       \
   $JAVA_OPTS                      \
   -jar $sbtjar "$@"
