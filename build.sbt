@@ -13,7 +13,7 @@ lazy val supportedScalaVersions = List(scala212, scala213)
 inThisBuild(
   List(
     crossScalaVersions := supportedScalaVersions,
-    scalaVersion := scala212,
+    scalaVersion := scala213,
     organization := "com.av8data",
     homepage := Some(url("https://av8data.com")),
     licenses := List("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
@@ -35,6 +35,11 @@ inThisBuild(
       "releases" at "https://oss.sonatype.org/" + "service/local/staging/deploy/maven2"),
   )
 )
+
+inThisBuild(
+  List(
+    scalafixScalaBinaryVersion := "2.13"
+  ))
 
 showCurrentGitBranch
 git.useGitDescribe := true
