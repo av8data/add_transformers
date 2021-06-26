@@ -6,7 +6,7 @@ import sbtrelease._
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
 lazy val scala212 = "2.12.14"
-lazy val scala213 = "2.13.5"
+lazy val scala213 = "2.13.6"
 
 lazy val supportedScalaVersions = List(scala212, scala213)
 
