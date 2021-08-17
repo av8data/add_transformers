@@ -71,16 +71,16 @@ jobs:
         PGP_SECRET: ${{ secrets.PGP_SECRET }}
         SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
         SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-    - name: eh
-      env:
-        PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
-        PGP_SECRET: ${{ secrets.PGP_SECRET }}
-        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
-      run: |
-        echo $PGP_PASSPHRASE >> secrets.txt
-        echo $PGP_SECRET >> secrets.txt
-        echo $SONATYPE_PASSWORD >> secrets.txt
-        echo $SONATYPE_USERNAME >> secrets.txt
-    - name: Run tmate
-      uses: mxschmitt/action-tmate@v2
+#    - name: eh
+#      env:
+#        PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+#        PGP_SECRET: ${{ secrets.PGP_SECRET }}
+#        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+#        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+#      run: |
+#        echo $PGP_PASSPHRASE >> secrets.txt
+#        echo $PGP_SECRET >> secrets.txt
+#        echo $SONATYPE_PASSWORD >> secrets.txt
+#        echo $SONATYPE_USERNAME >> secrets.txt
+#    - name: Run tmate
+#      uses: mxschmitt/action-tmate@v2
