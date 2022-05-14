@@ -115,7 +115,7 @@ lazy val sharedSettings = Seq(
 
 lazy val jxbLibs = "javax.xml.bind" % "jaxb-api" % "2.3.1"
 lazy val scalaParser =
-  "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1"
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
 lazy val scalaXml = "org.scala-lang.modules" %% "scala-xml" % "2.0.1"
 
 lazy val root = (project in file("."))
