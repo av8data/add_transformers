@@ -175,4 +175,3 @@ lazy val tafdata = project
     description := "TAF data representation in scalaxb"
   )
   .settings(publishSettings)
-
