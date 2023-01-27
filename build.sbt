@@ -5,10 +5,8 @@ import sbtrelease._
 
 Global / onChangedBuildSource := ReloadOnSourceChanges
 
-
 lazy val scala212 = "2.12.17"
 lazy val scala213 = "2.13.10"
-
 
 lazy val supportedScalaVersions = List(scala212, scala213)
 
@@ -117,7 +115,7 @@ lazy val sharedSettings = Seq(
 
 lazy val jxbLibs = "javax.xml.bind" % "jaxb-api" % "2.3.1"
 lazy val scalaParser =
-  "org.scala-lang.modules" %% "scala-parser-combinators" % "2.1.1"
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "2.2.0"
 lazy val scalaXml = "org.scala-lang.modules" %% "scala-xml" % "2.1.0"
 
 lazy val root = (project in file("."))
